@@ -24,9 +24,7 @@ if (Meteor.isClient) {
   };
 
   Template.late_list.has_lates = function() {
-    return Lates.findOne({
-      'date': new Date().toDateString(),
-    }) ? true : false;
+        return Lates.find().count() > 0;
   };
 
   Template.late_list.todays_lates = function() {

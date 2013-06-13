@@ -31,18 +31,20 @@ if (Meteor.isClient) {
       Meteor.defer(function() { item.slideDown(); });
       Session.set(id, true);
     }
-    
   };
 
   Template.late_list.events = {
     'click #request-submit': function(e) {
       e.preventDefault();
-      Lates.insert({
-        'name': $('#name').val(),
-        'refrigerated': $('#refrigerated').prop('checked'),
-        'veggie': $('#veggie').prop('checked'),
-        'date': new Date().toDateString(),
-      });
+      if ($('#name').val().length > 0) {
+        Lates.insert({
+          'name': $('#name').val(),
+          'refrigerated': $('#refrigerated').prop('checked'),
+          'veggie': $('#veggie').prop('checked'),
+          'date': new Date().toDateString(),
+        });
+        $('#name').val("");
+      }
     },
 
     'click .late-cancel': function(e) {

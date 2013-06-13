@@ -1,0 +1,51 @@
+<head>
+	<title>Request Late</title>
+</head>
+
+<body>
+  {{> late_list}}
+</body>
+
+<template name="late_list">
+<div id="late-list-container">
+<h1>Lates for {{today}}</h1>
+{{#if has_lates}}
+	<ul id="late-list">
+		{{#each todays_lates}}
+			{{> late}}
+		{{/each}}
+	</ul>
+{{else}}
+	<div id="no-lates">
+		No lates (yet) today!
+	</div>
+{{/if}}
+
+<div id="request-container">
+<form method="POST" action="" id="request">
+    Name: <input type="text" id="name" name="name" />
+    Refrigerated: <input type="checkbox" id="refrigerated" name="refrigerated" checked="checked" />
+    <input type="submit" id="request-submit" value="Submit" />
+</form>
+</div>
+</div>
+</template>
+
+<template name="late">
+	<li class="late-item" id="{{_id}}">
+		<span class="late-name">{{name}}</span>
+		<div class="late-properties">
+				<span class="late-refrigerated">
+					{{#if refrigerated}}
+						Refrigerated
+					{{else}}
+						Unrefrigerated
+					{{/if}}
+				</span>
+				<span class="late-cancel">
+						<a href="about:blank" class="late-cancel-link">Cancel</a>
+				</span>
+		</div>
+		<div class="clear"></div>
+	</li>
+</template>

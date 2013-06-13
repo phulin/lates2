@@ -39,7 +39,7 @@ if (Meteor.isClient) {
       e.preventDefault();
       Lates.insert({
         'name': $('#name').val(),
-        'refrigerated': $('#refrigerated').val(),
+        'refrigerated': $('#refrigerated').prop('checked'),
         'date': new Date().toDateString(),
       });
     },

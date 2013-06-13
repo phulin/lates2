@@ -9,24 +9,22 @@
 <template name="late_list">
 <div id="late-list-container">
 <h1>Lates for {{today}}</h1>
-{{#if has_lates}}
-	<ul id="late-list">
+{{#if loading}}
+	Loading...
+{{else}}
+	{{#if has_lates}}
+		<ul id="late-list">
 		{{#each todays_lates}}
 			{{> late}}
 		{{/each}}
-	</ul>
-{{else}}
-	<div id="no-lates">
-		{{#if loading}}
-			Loading...
-		{{else}}
-			No lates (yet) today!
-		{{/if}}
-	</div>
+		</ul>
+	{{else}}
+		No lates (yet) today!
+	{{/if}}
 {{/if}}
 
 <div id="request-container">
-<form method="POST" action="" id="request">
+<form id="request">
     Name: <input type="text" id="name" name="name" />
     Refrigerated: <input type="checkbox" id="refrigerated" name="refrigerated" checked="checked" />
     Vegetarian: <input type="checkbox" id="veggie" name="veggie" />

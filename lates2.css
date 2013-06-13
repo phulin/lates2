@@ -50,7 +50,7 @@ h1 {
     font-size: 1.5em;
 }
 
-.late-refrigerated {
+.late-properties {
     font-style: italic;
     display: block;
     float: left;
@@ -72,8 +72,16 @@ form {
 }
 
 .late-cancel a {
-    color: #80BBFF;
+    color: #FF5E5E;
     text-decoration: none;
+}
+
+.refrigerated {
+	color: #99E9FF;
+}
+
+.veggie {
+	color: #68D164;
 }
 
 .clear {

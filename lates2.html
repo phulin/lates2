@@ -25,6 +25,7 @@
 <form method="POST" action="" id="request">
     Name: <input type="text" id="name" name="name" />
     Refrigerated: <input type="checkbox" id="refrigerated" name="refrigerated" checked="checked" />
+    Vegetarian: <input type="checkbox" id="veggie" name="veggie" />
     <input type="submit" id="request-submit" value="Submit" />
 </form>
 </div>
@@ -34,17 +35,20 @@
 <template name="late">
 	<li class="late-item" id="{{_id}}">
 		<span class="late-name">{{name}}</span>
-		<div class="late-properties">
-				<span class="late-refrigerated">
-					{{#if refrigerated}}
-						Refrigerated
-					{{else}}
-						Unrefrigerated
-					{{/if}}
-				</span>
-				<span class="late-cancel">
-						<a href="about:blank" class="late-cancel-link">Cancel</a>
-				</span>
+		<div class="late-line2">
+			<span class="late-properties">
+				{{#if refrigerated}}
+					<span class="refrigerated">Refrigerated</span>
+				{{else}}
+					Unrefrigerated
+				{{/if}}
+				{{#if veggie}}
+					<span class="veggie">Vegetarian</span>
+				{{/if}}
+			</span>
+			<span class="late-cancel">
+					<a href="about:blank" class="late-cancel-link">Cancel</a>
+			</span>
 		</div>
 		<div class="clear"></div>
 	</li>

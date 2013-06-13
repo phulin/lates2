@@ -6,6 +6,26 @@ days = [ "Sunday", "Monday", "Tuesday", "Wednesday",
       "Thursday", "Friday", "Saturday" ];
 
 if (Meteor.isClient) {
+  Meteor.startup(function() {
+    Session.setDefault('lates_loading', true);
+  });
+
+  Deps.autorun(function() {
+    Meteor.subscribe('lates', function() {
+      // This will run when we're subscribed
+      Session.set('lates_loading', false);
+      Lates.find({
+        'date': new Date().toDateString(),
+      }).forEach(function(late) {
+        Session.set(late._id);
+      });
+    });
+  });
+
+  Template.late_list.loading = function() {
+    return Session.get('lates_loading');
+  };
+
   Template.late_list.has_lates = function() {
     return Lates.findOne({
       'date': new Date().toDateString(),

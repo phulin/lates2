@@ -17,7 +17,11 @@
 	</ul>
 {{else}}
 	<div id="no-lates">
-		No lates (yet) today!
+		{{#if loading}}
+			Loading...
+		{{else}}
+			No lates (yet) today!
+		{{/if}}
 	</div>
 {{/if}}
 

@@ -6,21 +6,28 @@ days = [ "Sunday", "Monday", "Tuesday", "Wednesday",
       "Thursday", "Friday", "Saturday" ];
       
 if (Meteor.isServer) {
-      Meteor.publish('lates', function () {
-            // Publish the entire collection on the server
-            return Lates.find();
-      });
+  Meteor.publish('lates', function() {
+    // Publish the entire collection on the server
+    return Lates.find();
+  });
 }
 
 if (Meteor.isClient) {
-    Session.setDefault('lates-loading', true);
-    
-    Meteor.subscribe('lates', function () {
-          Session.set('lates-loading', false);
+  Meteor.startup(function() {
+    Session.setDefault('lates_done_loading', false);
+  });
+  
+  Meteor.subscribe('lates', function() {
+    Session.set('lates_done_loading', true);
+    Lates.find({
+      'date': new Date().toDateString(),
+    }).forEach(function(late) {
+      Session.set(late._id, true);
     });
+  });
 
   Template.late_list.loading = function() {
-    return Session.get('lates-loading');
+    return Session.get('lates_done_loading') ? false : true;
   };
 
   Template.late_list.has_lates = function() {

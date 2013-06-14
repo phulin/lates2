@@ -4,7 +4,7 @@ months = [ "January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December" ]
 days = [ "Sunday", "Monday", "Tuesday", "Wednesday",
       "Thursday", "Friday", "Saturday" ];
-      
+
 if (Meteor.isServer) {
   Meteor.publish('lates', function() {
     // Publish the entire collection on the server
@@ -14,14 +14,13 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
   Meteor.startup(function() {
+    Session.setDefault('current_day', new Date());
     Session.setDefault('lates_done_loading', false);
   });
   
   Meteor.subscribe('lates', function() {
     Session.set('lates_done_loading', true);
-    Lates.find({
-      'date': new Date().toDateString(),
-    }).forEach(function(late) {
+    Lates.find().forEach(function(late) {
       Session.set(late._id, true);
     });
   });
@@ -32,19 +31,19 @@ if (Meteor.isClient) {
 
   Template.late_list.has_lates = function() {
     return Lates.find({
-      'date': new Date().toDateString(),
+      'date': Session.get('current_day').toDateString(),
     }).count() > 0;
   };
 
   Template.late_list.todays_lates = function() {
     return Lates.find({
-      'date': new Date().toDateString(),
+      'date': Session.get('current_day').toDateString(),
     });
   };
   
   Template.late_list.today = function() {
-    var now = new Date();
-    return days[now.getDay()] + ', ' + months[now.getMonth()] + ' ' + now.getDate();
+    var cur = Session.get('current_day');
+    return days[cur.getDay()] + ', ' + months[cur.getMonth()] + ' ' + cur.getDate();
   };
 
   Template.late.rendered = function() {
@@ -65,7 +64,7 @@ if (Meteor.isClient) {
           'name': $('#name').val(),
           'refrigerated': $('#refrigerated').prop('checked'),
           'veggie': $('#veggie').prop('checked'),
-          'date': new Date().toDateString(),
+          'date': Session.get('current_day').toDateString(),
         });
         $('#name').val("");
       }
@@ -80,6 +79,25 @@ if (Meteor.isClient) {
           '_id': id,
         });
       });
+    },
+
+    'click #prev': function(e) {
+      e.preventDefault();
+      var cur = Session.get('current_day');
+      cur.setDate(cur.getDate() - 1);
+      Session.set('current_day', cur);
+    },
+
+    'click #next': function(e) {
+      e.preventDefault();
+      var cur = Session.get('current_day');
+      cur.setDate(cur.getDate() + 1);
+      Session.set('current_day', cur);
+    },
+
+    'click #today': function(e) {
+      e.preventDefault();
+      Session.set('current_day', new Date());
     }
   };
 }

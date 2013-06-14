@@ -15,9 +15,16 @@ body {
     width: 550px;
     margin-left: auto;
     margin-right: auto;
+	margin-bottom: 8px;
     border: 3px white solid;
     border-radius: 5px;
     padding: 8px;
+}
+
+#nav-container {
+	width: 572px;
+	margin: 0 auto;
+	text-align: center;
 }
 
 #request-submit {
@@ -75,9 +82,16 @@ form {
     float: right;
 }
 
+a {
+    text-decoration: none;
+}
+
+#nav-container a {
+	color: #C391FF;
+}
+
 .late-cancel a {
     color: #FF5E5E;
-    text-decoration: none;
 }
 
 .refrigerated {

@@ -25,14 +25,16 @@
 	</div>
 {{/if}}
 
-<div id="request-container">
-<form method="POST" action="" id="request">
-    Name: <input type="text" id="name" name="name" />
-    Refrigerated: <input type="checkbox" id="refrigerated" name="refrigerated" checked="checked" />
-    Vegetarian: <input type="checkbox" id="veggie" name="veggie" />
-    <input type="submit" id="request-submit" value="Submit" />
-</form>
-</div>
+{{#if can_modify}}
+	<div id="request-container">
+	<form method="POST" action="" id="request">
+			Name: <input type="text" id="name" name="name" />
+			Refrigerated: <input type="checkbox" id="refrigerated" name="refrigerated" checked="checked" />
+			Vegetarian: <input type="checkbox" id="veggie" name="veggie" />
+			<input type="submit" id="request-submit" value="Submit" />
+	</form>
+	</div>
+{{/if}}
 
 <div id="nav-container">
 	<a href="prev" id="prev" style="float: left;">Previous Day</a>
@@ -56,9 +58,11 @@
 					<span class="veggie">Vegetarian</span>
 				{{/if}}
 			</span>
-			<span class="late-cancel">
-					<a href="about:blank" class="late-cancel-link">Cancel</a>
-			</span>
+			{{#if can_modify}}
+				<span class="late-cancel">
+						<a href="about:blank" class="late-cancel-link">Cancel</a>
+				</span>
+			{{/if}}
 		</div>
 		<div class="clear"></div>
 	</li>

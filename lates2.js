@@ -25,24 +25,38 @@ if (Meteor.isClient) {
     });
   });
 
+  function can_modify() {
+    var yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    return current_day() > yesterday;
+  }
+
+  function current_day() {
+    var cur = Session.get('current_day');
+    return cur ? cur : new Date();
+  }
+
+  Template.late.can_modify = can_modify;
+  Template.late_list.can_modify = can_modify;
+
   Template.late_list.loading = function() {
     return Session.get('lates_done_loading') ? false : true;
   };
 
   Template.late_list.has_lates = function() {
     return Lates.find({
-      'date': Session.get('current_day').toDateString(),
+      'date': current_day().toDateString(),
     }).count() > 0;
   };
 
   Template.late_list.todays_lates = function() {
     return Lates.find({
-      'date': Session.get('current_day').toDateString(),
+      'date': current_day().toDateString(),
     });
   };
   
   Template.late_list.today = function() {
-    var cur = Session.get('current_day');
+    var cur = current_day();
     return days[cur.getDay()] + ', ' + months[cur.getMonth()] + ' ' + cur.getDate();
   };
 
@@ -64,7 +78,7 @@ if (Meteor.isClient) {
           'name': $('#name').val(),
           'refrigerated': $('#refrigerated').prop('checked'),
           'veggie': $('#veggie').prop('checked'),
-          'date': Session.get('current_day').toDateString(),
+          'date': current_day().toDateString(),
         });
         $('#name').val("");
       }
@@ -83,14 +97,14 @@ if (Meteor.isClient) {
 
     'click #prev': function(e) {
       e.preventDefault();
-      var cur = Session.get('current_day');
+      var cur = current_day();
       cur.setDate(cur.getDate() - 1);
       Session.set('current_day', cur);
     },
 
     'click #next': function(e) {
       e.preventDefault();
-      var cur = Session.get('current_day');
+      var cur = current_day();
       cur.setDate(cur.getDate() + 1);
       Session.set('current_day', cur);
     },

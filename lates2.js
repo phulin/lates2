@@ -39,6 +39,10 @@ if (Meteor.isClient) {
   Template.late.can_modify = can_modify;
   Template.late_list.can_modify = can_modify;
 
+  Template.late_list.not_today = function() {
+    return current_day().toDateString() != new Date().toDateString();
+  }
+
   Template.late_list.loading = function() {
     return Session.get('lates_done_loading') ? false : true;
   };

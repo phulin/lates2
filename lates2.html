@@ -8,7 +8,7 @@
 
 <template name="late_list">
 <div id="late-list-container">
-<h1>Lates for {{today}}</h1>
+	<h1>Lates for {{today}}{{#if not_today}} (Not today!){{/if}}</h1>
 {{#if has_lates}}
 	<ul id="late-list">
 		{{#each todays_lates}}

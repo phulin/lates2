@@ -12,12 +12,16 @@ body {
 }
 
 #request-container {
-    width: 500px;
+    width: 550px;
     margin-left: auto;
     margin-right: auto;
     border: 3px white solid;
     border-radius: 5px;
     padding: 8px;
+}
+
+#request-submit {
+	float: right;
 }
 
 #late-list {

@@ -69,7 +69,7 @@ if (Meteor.isClient) {
     var id = item.attr('id');
     if (!Session.get(id)) {
       item.hide();
-      Meteor.defer(function() { item.slideDown(); });
+      Meteor.defer(function() { item.fadeIn(200); });
       Session.set(id, true);
     }
   };
@@ -88,11 +88,11 @@ if (Meteor.isClient) {
       }
     },
 
-    'click .late-cancel': function(e) {
+    'click button.close': function(e) {
       e.preventDefault();
       var late_item = $(e.target).parents('.late-item');
       var id = late_item.attr('id');
-      late_item.slideUp(400, function() {
+      late_item.find('td').fadeOut(200, function() {
         Lates.remove({
           '_id': id,
         });

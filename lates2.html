@@ -11,7 +11,16 @@
 </body>
 
 <template name="late_list">
-<h1>Lates for {{today}}{{#if not_today}} (Not today!){{/if}}</h1>
+<h1>
+	Lates for {{today}}
+	{{#if not_today}}
+		{{#if can_modify}}
+			(FUTURE)
+		{{else}}
+			(PAST)
+		{{/if}}
+	{{/if}}
+</h1>
 {{#if has_lates}}
 	<table class="table table-bordered">
 		{{#each todays_lates}}

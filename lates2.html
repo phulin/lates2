@@ -15,7 +15,6 @@
 	Lates for {{today}}
 	{{#if not_today}}
 		{{#if can_modify}}
-			(FUTURE)
 		{{else}}
 			(PAST)
 		{{/if}}
@@ -58,7 +57,10 @@
 <div class="row-fluid">
 	<div id="nav-container" class="span10 offset1">
 		<a href="#" id="prev" style="float: left;">Previous Day</a>
-		<a href="#" id="next" style="float: right;">Next Day</a>
+		{{#if can_modify}}
+		{{else}}
+			<a href="#" id="next" style="float: right;">Next Day</a>
+		{{/if}}
 		<a href="#" id="today">Today</a>
 	</div>
 </div>
